@@ -2,8 +2,9 @@
 
 int main()
 {
-	Zombie* ptr = zombieHorde(10, "aymen");
-	for (int i = 0; i < 10; i++) {
+	int x = -1;
+	Zombie* ptr = zombieHorde(x, "aymen");
+	for (int i = 0; i < x; i++) {
 		ptr[i].announce();
 	}
 	delete[] ptr;
