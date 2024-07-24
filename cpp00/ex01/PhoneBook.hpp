@@ -3,11 +3,12 @@
 
 class PhoneBook {
 private:
-	int			i;
-	int 		n;
-	int			flag;
-	int 		oldest;
-	int			index;
+	int				i;
+	int 			n;
+	int				flag;
+	int 			oldest;
+	int				index;
+	std::string		s_index;
 	Contact contacts[8];
 	std::string	trim_str(std::string str);
 public:

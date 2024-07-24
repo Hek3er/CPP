@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include "PhoneBook.hpp"
 
@@ -28,8 +29,8 @@ void PhoneBook::Add(std::string f, std::string l, std::string nick, std::string 
 	contacts[i].FirstName = f;
 	contacts[i].LastName = l;
 	contacts[i].NickName = nick;
-	contacts[i].PhoneNumber = n;
 	contacts[i].DarkestSecret = d;
+	contacts[i].PhoneNumber = n;
 	i++;
 }
 
@@ -64,13 +65,17 @@ void PhoneBook::ShowTable() {
 }
 
 void PhoneBook::Search() {
-	if (!n)
-		return ;
 	while (1) {
 		std::cout << "Please Enter Index = ";
-		std::cin >> index;
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		if (index < 0 || index > 8 || index > n - 1) {
+		if (std::getline(std::cin, s_index).eof())
+			exit(1);
+		std::stringstream ss(s_index);
+		ss >> index;
+		if (!n) {
+			std::cout << "There is No Contact" << std::endl;
+			return ;
+		}
+		if (ss.fail() || !ss.eof() || index < 0 || index > 8 || index > n - 1) {
 			std::cout << "Enter a valid index" << std::endl;
 		}
 		else
@@ -84,14 +89,16 @@ void PhoneBook::Search() {
 	std::cout << "Phone Number : " << contacts[index].PhoneNumber << std::endl << std::endl;
 }
 
-void	GetInput(std::string& InputStr, std::string str)
+int	GetInput(std::string& InputStr, std::string str)
 {
 	while (1) {
 		std::cout << str;
-		std::getline(std::cin, InputStr);
+		if (std::getline(std::cin, InputStr).eof())
+			exit(1);
 		if (InputStr[0])
-			break;
+			return (1);
 	}
+	return (1);
 }
 
 int main()
@@ -108,14 +115,20 @@ int main()
 	while (1)
 	{
 		std::cout << "> ";
-		std::getline(std::cin, input);
+		if (std::getline(std::cin, input).eof())
+			exit(1);
 		if (!input.compare("ADD"))
 		{
-			GetInput(FirstName, "First Name : ");
-			GetInput(LastName, "Last Name : ");
-			GetInput(NickName, "Nick Name : ");
-			GetInput(DarkSecret, "Darkest Secret : ");
-			GetInput(PhoneNumber, "Phone Number : ");
+			if(!GetInput(FirstName, "First Name : "))
+				return (1);
+			if(!GetInput(LastName, "Last Name : "))
+				return (1);
+			if(!GetInput(NickName, "Nick Name : "))
+				return (1);
+			if(!GetInput(DarkSecret, "Darkest Secret : "))
+				return (1);
+			if(!GetInput(PhoneNumber, "Phone Number : "))
+				return (1);
 			std::cout << std::endl<<"		*** Contact Added ***"<< std::endl<< std::endl;
 			book.Add(FirstName, LastName, NickName, DarkSecret, PhoneNumber);
 		}
