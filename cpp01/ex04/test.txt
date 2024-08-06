@@ -1,0 +1,12 @@
+int main() {
+
+	while (int i = 0; i < 100; i++) {
+		ll;
+	}
+
+	while (;;) {
+	}
+
+	return 1;
+
+}
