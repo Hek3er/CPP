@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 #include <fstream>
 #include <ostream>
@@ -23,12 +22,21 @@ int main(int ac, char **av)
 	OutputFileName = FileName + ".replace";
 
 	std::ifstream file(FileName);
-	std::ofstream output(OutputFileName);
 
 	if (!file) {
 		std::cerr << "Unable To open file" << std::endl;
 		return (1);
 	}
+
+	// std::cout << "file.peek() = " << file.peek() << std::endl;
+	if (file.peek() == std::ifstream::traits_type::eof())
+	{
+		std::cerr << FileName <<  ": File is empty" << std::endl;
+		return (1);
+	}
+
+	std::ofstream output(OutputFileName);
+
 
 	while (!file.eof()) {
 		std::getline(file, str);
