@@ -11,7 +11,7 @@ $(NAME) : $(OSRC)
 	@echo "compiling.. "
 	@$(CC) $(CFLAGS) $(OSRC) -o $(NAME)
 
-%.o : %.c
+%.o : %.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
