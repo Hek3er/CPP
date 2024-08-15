@@ -6,7 +6,7 @@ int main(int ac, char **av)
 {
 	std::string str;
 	std::string StringToReplace;
-	std::string StringToBeReplaced;
+	std::string NewString;
 	std::string FileName;
 	std::string OutputFileName;
 	size_t pos = 0;
@@ -17,7 +17,7 @@ int main(int ac, char **av)
 	}
 
 	StringToReplace = av[2];
-	StringToBeReplaced = av[3];
+	NewString = av[3];
 	FileName = av[1];
 	OutputFileName = FileName + ".replace";
 
@@ -37,14 +37,13 @@ int main(int ac, char **av)
 
 	std::ofstream output(OutputFileName);
 
-
 	while (!file.eof()) {
 		std::getline(file, str);
 			while (1) {
 				pos = str.find(StringToReplace);
 				if (pos != std::string::npos) {
 					str.erase(pos, StringToReplace.length());
-					str.insert(pos, StringToBeReplaced);
+					str.insert(pos, NewString);
 				}
 				else {
 					break;
