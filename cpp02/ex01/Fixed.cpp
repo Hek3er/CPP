@@ -11,10 +11,12 @@ Fixed::Fixed( void ) : _FixedVal(0) {
 }
 
 Fixed::Fixed( const int val ) {
+	std::cout << "Int constructor called" << std::endl;
 	this->_FixedVal = (val << 16);
 }
 
 Fixed::Fixed( const float val ) {
+	std::cout << "Float constructor called" << std::endl;
 	this->_FixedVal = (int)(roundf(val * 65536.0f));
 }
 
@@ -24,7 +26,7 @@ Fixed::Fixed( const Fixed& fix ) {
 }
 
 Fixed::~Fixed() {
-
+	std::cout << "Destructor called" << std::endl;
 }
 
 Fixed& Fixed::operator=(const Fixed& fix) {
