@@ -1,10 +1,6 @@
 #include "Fixed.hpp"
 
-#include <cmath> // remove
-
-//	Int				 Fraction
-// 	xxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxx
-//  0000000000000011.1000000000000000
+#include <cmath>
 
 Fixed::Fixed( void ) : _FixedVal(0) {
 	std::cout << "Default constructor called" << std::endl;
@@ -12,12 +8,12 @@ Fixed::Fixed( void ) : _FixedVal(0) {
 
 Fixed::Fixed( const int val ) {
 	std::cout << "Int constructor called" << std::endl;
-	this->_FixedVal = (val << 16);
+	this->_FixedVal = (val << this->_FractionVal);
 }
 
 Fixed::Fixed( const float val ) {
 	std::cout << "Float constructor called" << std::endl;
-	this->_FixedVal = (int)(roundf(val * 65536.0f));
+	this->_FixedVal = static_cast<int>(roundf(val * 256.0f));
 }
 
 Fixed::Fixed( const Fixed& fix ) {
@@ -51,12 +47,12 @@ void	Fixed::setRawBits( int const raw) {
 }
 
 float Fixed::toFloat( void ) const {
-	float	int_part = this->_FixedVal >> 16;
-	float	frac_fix_part = this->_FixedVal & ((1 << 16) - 1);
-	float	frac_part = frac_fix_part / (65536);
+	float	int_part = this->_FixedVal >> this->_FractionVal;
+	float	frac_fix_part = this->_FixedVal & ((1 << this->_FractionVal) - 1);
+	float	frac_part = frac_fix_part / (256.0f);
 	return (int_part + frac_part);
 }
 
 int Fixed::toInt( void ) const {
-	return (this->_FixedVal >> 16);
+	return (this->_FixedVal >> this->_FractionVal);
 }
