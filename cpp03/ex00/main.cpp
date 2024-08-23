@@ -8,4 +8,6 @@ int main() {
 	clap.beRepaired(1);
 	clap.takeDamage(4);
 	clap.beRepaired(5);
+	clap.takeDamage(1);
+	clap.beRepaired(5);
 }

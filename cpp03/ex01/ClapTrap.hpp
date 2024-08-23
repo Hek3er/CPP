@@ -15,7 +15,7 @@ public:
 	ClapTrap& operator=( const ClapTrap& clap );
 	~ClapTrap();
 
-private:
+protected:
 
 	std::string _Name;
 	int			_HitPoints;
