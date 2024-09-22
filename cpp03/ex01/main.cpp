@@ -1,5 +1,7 @@
 #include "ScavTrap.hpp"
 
 int main() {
-	ScavTrap	clap;
+	ScavTrap	clap("Aymen");
+
+	clap.attack("zainabi");
 }

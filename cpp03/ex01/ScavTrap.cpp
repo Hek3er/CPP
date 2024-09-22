@@ -19,7 +19,8 @@ ScavTrap::ScavTrap( std::string Name ) : ClapTrap( Name ) {
 }
 
 ScavTrap::ScavTrap( ScavTrap& scav ) {
-	// fill later
+	std::cout << "ScavTrap " << this->_Name << " Copy Constructor called" << std::endl;
+	*this = scav;
 }
 
 void ScavTrap::attack(const std::string& target) {
