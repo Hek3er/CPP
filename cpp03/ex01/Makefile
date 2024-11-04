@@ -1,9 +1,8 @@
-SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
+SRC = main.cpp ScavTrap.cpp ClapTrap.cpp
 CC = c++
 NAME = main
-CFLAGS = -Wall -Wextra -Werror -std=c++98
-HEADER = ClapTrap.hpp ScavTrap.hpp
-
+CFLAGS = -Wall -Werror -Wextra -std=c++98
+HEADER =  ScavTrap.hpp ClapTrap.hpp
 OSRC = $(SRC:.cpp=.o)
 
 all : $(NAME)

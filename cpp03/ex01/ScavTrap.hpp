@@ -1,14 +1,17 @@
 #pragma once
 
-#include "ClapTrap.hpp"
+# include <iostream>
+# include "ClapTrap.hpp"
 
 class ScavTrap : public ClapTrap {
 
 public:
+
 	ScavTrap();
-	ScavTrap( std::string Name );
-	ScavTrap( ScavTrap& scav ); // fill later
-	void attack(const std::string& target);
+	ScavTrap( std::string name );
+	ScavTrap( ScavTrap& obj );
+	ScavTrap& operator=( const ScavTrap& obj );
+	void attack( const std::string& target );
 	void guardGate();
 	~ScavTrap();
 };

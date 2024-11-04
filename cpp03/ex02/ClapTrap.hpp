@@ -13,9 +13,13 @@ public:
 	void takeDamage( unsigned int amount );
 	void beRepaired( unsigned int amount );
 	ClapTrap& operator=( const ClapTrap& obj );
+	void	PrintHitPoints() const;
+	void	PrintEnergyPoints() const;
+	void	PrintAttackDamage() const;
+	void	PrintName() const;
 	~ClapTrap();
 
-private:
+protected:
 	std::string _Name;
 	int			_HitPoints;
 	int			_EnergyPoints;

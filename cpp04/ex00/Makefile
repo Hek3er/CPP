@@ -1,8 +1,8 @@
-SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp 
+SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
 CC = c++
 NAME = main
 CFLAGS = -Wall -Werror -Wextra -std=c++98
-HEADER =  Animal.hpp Dog.hpp Cat.hpp 
+HEADER =  Animal.hpp Dog.hpp Cat.hpp  WrongAnimal.hpp WrongCat.hpp
 OSRC = $(SRC:.cpp=.o)
 
 all : $(NAME)

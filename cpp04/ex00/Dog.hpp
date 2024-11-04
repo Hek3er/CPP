@@ -1,8 +1,9 @@
 #pragma once
 
 # include <iostream>
+# include "Animal.hpp"
 
-class Dog {
+class Dog : public Animal {
 
 public:
 
@@ -10,7 +11,6 @@ public:
 	Dog( Dog& obj );
 	Dog& operator=( const Dog& obj );
 	~Dog();
-
-private:
+	void	makeSound( void ) const;
 
 };

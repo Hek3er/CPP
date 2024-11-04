@@ -1,10 +1,10 @@
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main() {
 
-	// ScavTrap	c;
-	ScavTrap	c("aymen");
-	std::cout << "\n /**** ScavTrap Info ****/\n" << std::endl;
+	// FragTrap	c;
+	FragTrap	c("aymen");
+	std::cout << "\n /**** FragTrap Info ****/\n" << std::endl;
 	c.PrintName();
 	c.PrintAttackDamage();
 	c.PrintEnergyPoints();
@@ -12,22 +12,22 @@ int main() {
 	std::cout << "\n /********************/\n" << std::endl;
 
 	// **** damage test ****************************************
-	c.attack("bob");
-	c.beRepaired(1);
-	c.takeDamage(100);
+	// c.attack("bob");
+	// c.beRepaired(1);
+	// c.takeDamage(100);
 
-	std::cout << "\n /**** ScavTrap Info ****/\n" << std::endl;
-	c.PrintName();
-	c.PrintAttackDamage();
-	c.PrintEnergyPoints();
-	c.PrintHitPoints();
-	std::cout << "\n /********************/\n" << std::endl;
+	// std::cout << "\n /**** FragTrap Info ****/\n" << std::endl;
+	// c.PrintName();
+	// c.PrintAttackDamage();
+	// c.PrintEnergyPoints();
+	// c.PrintHitPoints();
+	// std::cout << "\n /********************/\n" << std::endl;
 	// ********************************************************
 
 	// **** Repaire test ****************************************
 	// c.takeDamage(9);
 	// c.beRepaired(1);
-	// std::cout << "\n /**** ScavTrap Info ****/\n" << std::endl;
+	// std::cout << "\n /**** FragTrap Info ****/\n" << std::endl;
 	// c.PrintName();
 	// c.PrintAttackDamage();
 	// c.PrintEnergyPoints();
@@ -36,19 +36,21 @@ int main() {
 	// ********************************************************
 
 	// **** No points test ****************************************
-	// for (int i = 0; i < 50; i++) {
-	// 	c.attack("bob");
-	// }
-	// //no points
-	// c.PrintEnergyPoints();
-	// c.attack("bob");
-	// c.beRepaired(1);
+	for (int i = 0; i < 100; i++) {
+		c.attack("bob");
+	}
+	//no points
+	c.PrintEnergyPoints();
+	c.attack("bob");
+	c.beRepaired(1);
 
-	// //special ability
-	// c.guardGate();
+	//special ability
+	c.highFivesGuys();
 
 	// ********************************************************
 
 	std::cout << std::endl;
+	return (0);
+
 	return (0);
 }

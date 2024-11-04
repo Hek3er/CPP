@@ -14,6 +14,4 @@ public:
 	void highFivesGuys(void);
 	~FragTrap();
 
-private:
-
 };

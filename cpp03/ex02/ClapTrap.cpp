@@ -53,6 +53,9 @@ void ClapTrap::takeDamage( unsigned int amount ) {
 	}
 	this->_HitPoints -= amount;
 	std::cout << this->_Type << " " << this->_Name << " took " << amount << " of damage" << std::endl;
+	if (this->_HitPoints == 0) {
+		std::cout << this->_Type << " " << this->_Name << " is dead 💀" << std::endl;
+	}
 }
 
 void ClapTrap::beRepaired( unsigned int amount ) {
@@ -70,8 +73,22 @@ void ClapTrap::beRepaired( unsigned int amount ) {
 	}
 	this->_HitPoints += amount;
 	if (amount > 0) {
+		std::cout << this->_Type << " " << this->_Name << " is being repaired by " << amount << std::endl;
 		this->_EnergyPoints--;
 	}
+}
+
+void	ClapTrap::PrintHitPoints() const {
+	std::cout << "HitPoints : " << this->_HitPoints << std::endl;
+}
+void	ClapTrap::PrintEnergyPoints() const {
+	std::cout << "EnergyPoints : " << this->_EnergyPoints << std::endl;
+}
+void	ClapTrap::PrintAttackDamage() const {
+	std::cout << "AttackDamage : " << this->_AttackDamage << std::endl;
+}
+void	ClapTrap::PrintName() const {
+	std::cout << "Name : " << this->_Name << std::endl;
 }
 
 ClapTrap::~ClapTrap() {

@@ -16,6 +16,7 @@ ScavTrap::ScavTrap( std::string name ) {
 	this->_HitPoints = 100;
 	this->_EnergyPoints = 50;
 	this->_AttackDamage = 20;
+	this->_Type = "ScavTrap";
 	this->_MaxPoints = 100;
 }
 
