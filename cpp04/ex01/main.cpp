@@ -12,32 +12,36 @@ int main() {
 
 	atexit(f);
 
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	delete j;//should not create a leak
-	delete i;
+	Brain	brain;
+	
 
-	//array of type Animal
-	int size = 10;
 
-	Animal *arr[size];
-	for (int i = 0; i < size; i++) {
-		if (i < size/2) {
-			arr[i] = new Dog();
-		} else {
-			arr[i] = new Cat();
-		}
-	}
+	// const Animal* j = new Dog();
+	// const Animal* i = new Cat();
+	// delete j;//should not create a leak
+	// delete i;
 
-	// call each animal
+	// //array of type Animal
+	// int size = 10;
 
-	for (int i = 0; i < size; i++) {
-		arr[i]->makeSound();
-	}
+	// Animal *arr[size];
+	// for (int i = 0; i < size; i++) {
+	// 	if (i < size/2) {
+	// 		arr[i] = new Dog();
+	// 	} else {
+	// 		arr[i] = new Cat();
+	// 	}
+	// }
 
-	for (int i = 0; i < size; i++) {
-		delete arr[i];
-	}
+	// // call each animal
 
-	return 0;
+	// for (int i = 0; i < size; i++) {
+	// 	arr[i]->makeSound();
+	// }
+
+	// for (int i = 0; i < size; i++) {
+	// 	delete arr[i];
+	// }
+
+	// return 0;
 }
