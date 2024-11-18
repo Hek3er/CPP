@@ -1,7 +1,7 @@
 #pragma once
 
 # include <iostream>
-# include "ICharacter.hpp"
+# include "Character.hpp"
 
 class AMateria {
 
@@ -17,5 +17,5 @@ public:
 	~AMateria();
 
 protected:
-
+	std::string	_Type;
 };
