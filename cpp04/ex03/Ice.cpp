@@ -1,12 +1,12 @@
 #include "Ice.hpp"
 
 Ice::Ice() {
-	std::cout << "Default Constructor Called" << std::endl;
+	// std::cout << "Default Constructor Called" << std::endl;
 	this->_Type = "ice";
 }
 
-Ice::Ice( Ice& obj ) {
-	std::cout << "Copy Constructor Called" << std::endl;
+Ice::Ice( const Ice& obj ) {
+	// std::cout << "Copy Constructor Called" << std::endl;
 
 	*this = obj;
 }
@@ -17,14 +17,15 @@ Ice& Ice::operator=( const Ice& obj) {
 }
 
 AMateria* 	Ice::clone() const {
-	return (new Ice);
+	AMateria* ptr = new Ice(*this);
+	return (ptr);
 }
 
-void		use(ICharacter& target) {
+void		Ice::use(ICharacter& target) {
 	std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }
 
 Ice::~Ice() {
-	std::cout << "Deconstructor Called" << std::endl;
+	// std::cout << "Deconstructor Called" << std::endl;
 }
 

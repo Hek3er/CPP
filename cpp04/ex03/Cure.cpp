@@ -1,13 +1,13 @@
 #include "Cure.hpp"
 
 Cure::Cure() {
-	std::cout << "Default Constructor Called" << std::endl;
+	// std::cout << "Default Constructor Called" << std::endl;
 	this->_Type = "cure";
 }
 
-Cure::Cure( Cure& obj ) {
-	std::cout << "Copy Constructor Called" << std::endl;
-
+Cure::Cure(const Cure& obj )  {
+	// std::cout << "Copy Constructor Called" << std::endl;
+	// this->_Type = "cure";
 	*this = obj;
 }
 
@@ -17,14 +17,15 @@ Cure& Cure::operator=( const Cure& obj) {
 }
 
 AMateria* 	Cure::clone() const {
-	return (new Cure);
+	AMateria* ptr = new Cure(*this);
+	return (ptr);
 }
 
-void		use(ICharacter& target) {
-	std::cout << "* heals "<< target.getName() <<"’s wounds *" << std::endl;
+void		Cure::use(ICharacter& target) {
+	std::cout << "* heals "<< target.getName() <<"'s wounds *" << std::endl;
 }
 
 Cure::~Cure() {
-	std::cout << "Deconstructor Called" << std::endl;
+	// std::cout << "Deconstructor Called" << std::endl;
 }
 
