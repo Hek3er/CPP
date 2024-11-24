@@ -1,7 +1,7 @@
 SRC = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
 CC = c++
 NAME = main
-CFLAGS = -g3 #-Wall -Werror -Wextra -std=c++98 -g3
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -g3
 HEADER =  AMateria.hpp Character.hpp Cure.hpp Ice.hpp ICharacter.hpp IMateriaSource.hpp MateriaSource.hpp
 OSRC = $(SRC:.cpp=.o)
 

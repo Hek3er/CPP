@@ -14,10 +14,9 @@ int main() {
 
 	const Animal* j = new Dog();
 	const Animal* i = new Cat();
-	delete j;//should not create a leak
+	delete j;
 	delete i;
 
-	//array of type Animal
 	int size = 10;
 
 	Animal *arr[size];
@@ -29,7 +28,6 @@ int main() {
 		}
 	}
 
-	// call each animal
 
 	for (int i = 0; i < size; i++) {
 		arr[i]->makeSound();
