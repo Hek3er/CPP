@@ -6,11 +6,9 @@ Bureaucrat::Bureaucrat() : _name("anon"), _grade(1) {
 Bureaucrat::Bureaucrat( const std::string name, const short grade ) : _name(name), _grade(grade) {
 	if (grade < 1) {
 		throw Bureaucrat::GradeTooHighException();
-		return ;
 	}
 	if (grade > 150) {
 		throw Bureaucrat::GradeTooLowException();
-		return ;
 	}
 }
 
@@ -36,7 +34,6 @@ short Bureaucrat::getGrade( void ) const {
 void	Bureaucrat::bump( void ) {
 	if (this->_grade == 1) {
 		throw Bureaucrat::GradeTooHighException();
-		return ;
 	}
 	this->_grade--;
 }
@@ -44,7 +41,6 @@ void	Bureaucrat::bump( void ) {
 void	Bureaucrat::dump( void ) {
 	if (this->_grade == 150) {
 		throw Bureaucrat::GradeTooLowException();
-		return ;
 	}
 	this->_grade++;
 }

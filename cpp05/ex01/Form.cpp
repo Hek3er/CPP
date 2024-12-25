@@ -1,6 +1,6 @@
 #include "Form.hpp"
 
-Form::Form() : _name("default form"), _signed(false), _required_grade_execute(1), _required_grade_sign(50) {
+Form::Form() : _name("default form"), _signed(false), _required_grade_sign(1), _required_grade_execute(50) {
 
 }
 
@@ -13,7 +13,7 @@ Form::Form( const std::string name, const short signGrade ) : _name(name), _requ
 	}
 }
 
-Form::Form( const Form& obj ) : _name(obj._name), _signed(obj._signed), _required_grade_execute(obj._required_grade_execute), _required_grade_sign(obj._required_grade_sign) {
+Form::Form( const Form& obj ) : _name(obj._name), _signed(obj._signed), _required_grade_sign(obj._required_grade_sign), _required_grade_execute(obj._required_grade_execute) {
 
 }
 
@@ -32,11 +32,11 @@ const std::string Form::getName( void ) const {
 	return this->_name;
 }
 
-const short Form::getSignGrade( void ) const {
+short Form::getSignGrade( void ) const {
 	return this->_required_grade_sign;
 }
 
-const short Form::getSignExecute( void ) const {
+short Form::getSignExecute( void ) const {
 	return this->_required_grade_execute;
 }
 

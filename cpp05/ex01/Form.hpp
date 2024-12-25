@@ -3,6 +3,8 @@
 # include <iostream>
 # include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class Form {
 
 public:
@@ -14,8 +16,8 @@ public:
 
 	bool getSigned( void ) const;
 	const std::string getName( void ) const;
-	const short getSignGrade( void ) const;
-	const short getSignExecute( void ) const;
+	short getSignGrade( void ) const;
+	short getSignExecute( void ) const;
 
 	void	beSigned( const Bureaucrat& obj );
 
@@ -33,7 +35,7 @@ public:
 
 private:
 	const std::string _name;
-	bool	_signed;
+	bool		_signed;
 	const short	_required_grade_sign;
 	const short _required_grade_execute;
 };
