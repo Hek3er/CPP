@@ -56,6 +56,11 @@ void	Form::beSigned( const Bureaucrat& obj) {
 	throw Form::GradeTooLowException();
 }
 
+std::ostream& operator<<( std::ostream& o, const Form& form ) {
+	o << "form " << form.getName() << " requires " << form.getSignGrade() << " grades to sign and " << form.getSignExecute() << " grades to excecute it, right now it's signed value is " << form.getSigned() ;
+	return o;
+}
+
 Form::~Form() {
 }
 
