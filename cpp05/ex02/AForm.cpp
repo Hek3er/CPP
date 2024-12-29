@@ -4,14 +4,15 @@ AForm::AForm() : _name("default AForm"), _signed(false), _required_grade_sign(1)
 
 }
 
-AForm::AForm( const std::string name, const short signGrade ) : _name(name), _required_grade_sign(signGrade), _required_grade_execute(1) {
-	if (signGrade > 150) {
+AForm::AForm( const std::string name, const short sign, const short execute ) : _name(name), _required_grade_sign(sign), _required_grade_execute(execute) {
+	if (sign > 150 || execute > 150) {
 		throw AForm::GradeTooLowException();
 	}
-	if (signGrade < 1) {
+	if (sign < 1 || execute < 1) {
 		throw AForm::GradeTooHighException();
 	}
 }
+
 
 AForm::AForm( const AForm& obj ) : _name(obj._name), _signed(obj._signed), _required_grade_sign(obj._required_grade_sign), _required_grade_execute(obj._required_grade_execute) {
 

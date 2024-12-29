@@ -10,8 +10,8 @@ class AForm {
 public:
 
 	AForm();
-	AForm( const std::string name, const short signGrade );
-	AForm( const Form& obj );
+	AForm( const std::string name, const short sign, const short execute);
+	AForm( const AForm& obj );
 	AForm& operator=( const AForm& obj );
 
 	bool getSigned( void ) const;

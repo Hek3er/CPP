@@ -1,8 +1,8 @@
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp   
 CC = c++ 
 NAME = main
 CFLAGS = -Wall -Werror -Wextra -std=c++98
-HEADER =  Bureaucrat.hpp Form.hpp
+HEADER =  Bureaucrat.hpp AForm.hpp RobotomyRequestForm.hpp PresidentialPardonForm.hpp ShrubberyCreationForm.hpp
 OSRC = $(SRC:.cpp=.o)
 
 all : $(NAME)
