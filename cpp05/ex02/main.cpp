@@ -11,6 +11,7 @@ int main() {
 		ShrubberyCreationForm	shrub("home");
 		RobotomyRequestForm		robot("home2");
 		PresidentialPardonForm	president("home3");
+
 		Bureaucrat				boss("boss", 1);
 		Bureaucrat				noob("noob", 144);
 

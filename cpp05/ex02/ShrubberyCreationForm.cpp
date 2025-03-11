@@ -14,12 +14,14 @@ ShrubberyCreationForm::ShrubberyCreationForm( ShrubberyCreationForm& obj ) : AFo
 }
 
 ShrubberyCreationForm& ShrubberyCreationForm::operator=( const ShrubberyCreationForm& obj) {
-	this->_target = obj._target;
+	if (this != &obj) {
+		this->_target = obj._target;
+	}
 	return (*this);
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
-	if (executor.getGrade() > this->getSignGrade() || executor.getGrade() > this->getSignExecute()) {
+	if (!this->getSigned() || executor.getGrade() > this->getSignGrade() || executor.getGrade() > this->getSignExecute()) {
 		throw AForm::GradeTooLowException();
 	}
 	std::string 	file_name = this->_target + "_shrubbery";

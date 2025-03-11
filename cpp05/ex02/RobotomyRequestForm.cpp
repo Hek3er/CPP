@@ -15,12 +15,14 @@ RobotomyRequestForm::RobotomyRequestForm( RobotomyRequestForm& obj ) : AForm(obj
 }
 
 RobotomyRequestForm& RobotomyRequestForm::operator=( const RobotomyRequestForm& obj) {
-	this->_target = obj._target;
+	if (this != &obj) {
+		this->_target = obj._target;
+	}
 	return (*this);
 }
 
 void RobotomyRequestForm::execute(Bureaucrat const & executor) const {
-	if (executor.getGrade() > this->getSignGrade() || executor.getGrade() > this->getSignExecute()) {
+	if (!this->getSigned() || executor.getGrade() > this->getSignGrade() || executor.getGrade() > this->getSignExecute()) {
 		throw AForm::GradeTooLowException();
 	}
 

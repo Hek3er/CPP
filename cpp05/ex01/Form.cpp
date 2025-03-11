@@ -57,7 +57,7 @@ void	Form::beSigned( const Bureaucrat& obj) {
 }
 
 std::ostream& operator<<( std::ostream& o, const Form& form ) {
-	o << "form " << form.getName() << " requires " << form.getSignGrade() << " grades to sign and " << form.getSignExecute() << " grades to excecute it, right now it's signed value is " << form.getSigned() ;
+	o << "form " << form.getName() << " requires " << form.getSignGrade() << " grades to sign and " << form.getSignExecute() << " grades to excecute it, right now it's signed value is " << (form.getSigned() ? "true" : "false") ;
 	return o;
 }
 
