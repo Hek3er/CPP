@@ -29,7 +29,7 @@ AForm* Intern::makeForm( const std::string name, const std::string target ) {
 		return new PresidentialPardonForm(target);
 		break;
 	}
-	std::cerr << "invalid form name" << std::endl;
+	throw std::string("invalid form name");
 	return NULL;
 }
 
