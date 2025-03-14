@@ -3,28 +3,15 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int main() {
 
 	try
 	{
-		ShrubberyCreationForm	shrub("home");
-		RobotomyRequestForm		robot("home2");
-		PresidentialPardonForm	president("home3");
-
-		Bureaucrat				boss("boss", 1);
-		Bureaucrat				noob("noob", 144);
-
-		boss.executeForm(shrub);
-		boss.signForm(shrub);
-		boss.signForm(robot);
-		boss.signForm(president);
-		boss.executeForm(shrub);
-		noob.executeForm(shrub);
-		boss.executeForm(robot);
-		noob.executeForm(robot);
-		boss.executeForm(president);
-		noob.executeForm(president);
+		Intern someRandomIntern;
+		AForm* rrf;
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
 	}
 	catch (std::exception &e)
 	{
