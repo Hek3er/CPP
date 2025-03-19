@@ -1,6 +1,6 @@
 SRC = main.cpp ScalarConverter.cpp 
 CC = c++
-NAME = main
+NAME = convert
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 HEADER =  ScalarConverter.hpp 
 OSRC = $(SRC:.cpp=.o)
