@@ -17,6 +17,7 @@ Base * generate(void) {
     case 2:
         return new C;
     }
+    return NULL;
 }
 void identify(Base* p) {
     if (dynamic_cast<A*>(p)) {
@@ -28,5 +29,23 @@ void identify(Base* p) {
     }
 }
 void identify(Base& p) {
-
+    try {
+        (void)dynamic_cast<A&>(p);
+        // (void)p;
+        std::cout << "Type is <A>" << std::endl;
+        return ;
+    } catch(...) {
+    }
+    try {
+        (void)dynamic_cast<B&>(p);
+        std::cout << "Type is <B>" << std::endl;
+        return ;
+    } catch(...) {
+    }
+    try {
+        (void)dynamic_cast<C&>(p);
+        std::cout << "Type is <C>" << std::endl;
+        return ;
+    } catch(...) {
+    }
 }

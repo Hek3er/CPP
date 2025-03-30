@@ -1,4 +1,4 @@
-SRC = main.cpp Base.cpp A.cpp B.cpp C.cpp 
+SRC = main.cpp Base.cpp
 CC = c++
 NAME = main
 CFLAGS = -Wall -Werror -Wextra -std=c++98
