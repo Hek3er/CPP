@@ -31,7 +31,6 @@ void identify(Base* p) {
 void identify(Base& p) {
     try {
         (void)dynamic_cast<A&>(p);
-        // (void)p;
         std::cout << "Type is <A>" << std::endl;
         return ;
     } catch(...) {

@@ -101,12 +101,23 @@ void	handle_double( const std::string str ) {
 	} else {
 		PRINT_INT(static_cast<int>(out), "");
 	}
-	if (out > std::numeric_limits<float>::max() || out < std::numeric_limits<float>::min()) {
+	if (out > std::numeric_limits<float>::max() || out < -std::numeric_limits<float>::max() || 
+    (out != 0.0 && out > -std::numeric_limits<float>::min() && out < std::numeric_limits<float>::min())) {
 		PRINT_FLOAT("Impossible", "");
 	} else {
-		PRINT_FLOAT(static_cast<float>(out), "f");
+		if (static_cast<long long>(out) == out){
+			PRINT_FLOAT(static_cast<float>(out), ".0f");
+		}
+		else {
+			PRINT_FLOAT(static_cast<float>(out), "f")
+		}
 	}
-	PRINT_DOUBLE(out, "");
+	if (static_cast<long long>(out) == out){
+		PRINT_DOUBLE(out, ".0");
+	}
+	else {
+		PRINT_DOUBLE(out , "")
+	}
 }
 
 void	handle_float( const std::string str ) {
@@ -144,8 +155,13 @@ void	handle_float( const std::string str ) {
 	} else {
 		PRINT_INT(static_cast<int>(out), "");
 	}
-	PRINT_FLOAT(static_cast<float>(out), "f");
-	PRINT_DOUBLE(out, "");
+	if (out == static_cast<long long>(out)) {
+		PRINT_FLOAT(out, ".0f");
+		PRINT_DOUBLE(out, ".0");
+	} else {
+		PRINT_FLOAT(out, "f");
+		PRINT_DOUBLE(out, "");
+	}
 }
 
 void	handle_char( const std::string str ) {
@@ -172,7 +188,7 @@ void	ScalarConverter::convert( const std::string &str ) {
 	}
 	// handle int
 	if (CheckCharacters(str, "1234567890+-")) {
-		if ((str[0] == '-' || str[0] == '+') && !str[1]) {
+		if (((str[0] == '-' || str[0] == '+') && !str[1]) || !CheckCharacters(str.substr(1), "123456789")) {
 			std::cerr << "Invalid Type" << std::endl;
 			return ;
 		}
@@ -182,7 +198,7 @@ void	ScalarConverter::convert( const std::string &str ) {
 	}
 	//handle double
 	if (CheckCharacters(str, "1234567890-+.") || str == "nan" || str == "+inf" || str == "-inf") {
-		if ((str[0] == '-' || str[0] == '+') && (str != "nan" && str != "+inf" && str != "-inf") && (!str[1] || !isdigit(str[1]))) {
+		if ( !CheckCharacters(str.substr(1), "1234567890.") || ((str[0] == '-' || str[0] == '+') && (str != "nan" && str != "+inf" && str != "-inf") && (!str[1] || !isdigit(str[1])))) {
 			std::cerr << "Invalid Type" << std::endl;
 			return ;
 		}
@@ -191,8 +207,8 @@ void	ScalarConverter::convert( const std::string &str ) {
 		return ;
 	}
 	//handle float
- 	if ((CheckCharacters(str, "1234567890-+.f") && str[0] != 'f'  && str[str.length() - 1] == 'f') || str == "nanf" || str == "+inff" || str == "-inff") {
-		if ((str[0] == '-' || str[0] == '+')  && (str != "nanf" && str != "+inff" && str != "-inff") && (!str[1] || !isdigit(str[1]))) {
+ 	if ((CheckCharacters(str, "1234567890-+.f") && str[0] != 'f'  && str[str.length() - 1] == 'f' && isdigit(str[str.length() - 2])) || str == "nanf" || str == "+inff" || str == "-inff") {
+		if (!CheckCharacters(str.substr(1), "1234567890.f") || ((str[0] == '-' || str[0] == '+')  && (str != "nanf" && str != "+inff" && str != "-inff") && (!str[1] || !isdigit(str[1])))) {
 			std::cerr << "Invalid Type" << std::endl;
 			return ;
 		}
@@ -214,4 +230,3 @@ void	ScalarConverter::convert( const std::string &str ) {
 ScalarConverter::~ScalarConverter() {
 	std::cout << "Deconstructor Called" << std::endl;
 }
-
