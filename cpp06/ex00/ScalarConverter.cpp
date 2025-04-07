@@ -18,10 +18,13 @@ ScalarConverter& ScalarConverter::operator=( const ScalarConverter& obj) {
 }
 
 bool	CheckCharacters( const std::string str, const std::string allowed ) {
+	size_t count = 0;
 	for (size_t i = 0; i < str.length(); i++) {
 		if ((str[i] == '.' && (i + 1 == str.length())) || (str[i] == '.' && !isdigit(str[i + 1]))) {
 			return false;
 		}
+		if (str[i] == '.') count++;
+		if (count > 1) return false;
 		if ( allowed.find(str[i]) == std::string::npos ) {
 			return false;
 		}
