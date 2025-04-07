@@ -1,14 +1,14 @@
 #include "iter.hpp"
 
-class Base {
-public:
-    virtual std::string getType() {
-        return "Base";
-    }
-    virtual ~Base() {
+// class Base {
+// public:
+//     virtual std::string getType() {
+//         return "Base";
+//     }
+//     virtual ~Base() {
         
-    }   
-};
+//     }   
+// };
 
 // class A : public Base {
 // public:
