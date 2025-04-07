@@ -6,7 +6,7 @@ int main( int ac, char **av ) {
 		return 1;
 	}
 	
-	// std::string in[] = {"12", "12f", "0", "100", "c", "p", "21.", "32.f", "3.14f", "3.14", "crazy", "+inf", "-inf", "nan", "nanf", "nand", "+inff", "-inff", " ", " +inf"};
+	// std::string in[] = {"12", "12f", "0", "100", "c", "p", "21.", "32.f", "3.14f", "3.14", "crazy", "+inf", "-inf", "nan", "nanf", "nand", "+inff", "-inff", " ", " +inf", "+3.14.2", "-3.214.4f", "555.5f", "g3", "4g"};
 
 	// std::cout << "\n-----------tests------------\n";
 
