@@ -1,7 +1,6 @@
 #pragma once
 
 # include <iostream>
-#include <stdint.h>
 
 struct Data {
 	int val;
@@ -11,7 +10,7 @@ class Serializer {
 
 public:
 
-~Serializer();
+	~Serializer();
 
 	static uintptr_t serialize(Data* ptr);
 	static Data* deserialize(uintptr_t raw);
