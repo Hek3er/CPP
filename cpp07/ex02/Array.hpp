@@ -13,24 +13,24 @@ public:
     Array( const size_t n ) {
         try {
             arr = new T[n];
+            size = n;
         } catch( std::bad_alloc &e ) {
             std::cout << "coudn't allocate memory " << e.what() << std::endl;
-            return ;
+            size = 0;
         }
-        size = n;
     }
 
     Array( const Array& obj ) {
         try {
             arr = new T[obj.getSize()];
+            for (size_t i = 0; i < obj.getSize(); i++) {
+                arr[i] = obj.arr[i];
+            }
+            this->size = obj.getSize();
         } catch( std::bad_alloc &e ) {
             std::cout << "coudn't allocate memory " << e.what() << std::endl;
-            return ;
+            this->size = 0;
         }
-        for (size_t i = 0; i < obj.getSize(); i++) {
-            arr[i] = obj.arr[i];
-        }
-        this->size = obj.getSize();
     }
 
     Array& operator =( const Array& obj ) {
@@ -39,13 +39,13 @@ public:
                 T* newArr = new T[obj.getSize()];
                 if (arr) delete[] arr;
                 arr = newArr;
+                for (size_t i = 0; i < obj.getSize(); i++ ){
+                    arr[i] = obj.arr[i];
+                }
+                this->size = obj.getSize();
             } catch( std::bad_alloc &e ) {
                 std::cout << "coudn't allocate memory " << e.what() << std::endl;
             }
-            for (size_t i = 0; i < obj.getSize(); i++ ){
-                arr[i] = obj.arr[i];
-            }
-            this->size = obj.getSize();
         }
         return *this;
     }
