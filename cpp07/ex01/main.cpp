@@ -40,7 +40,7 @@ void prints(std::string v) {
 int main() {
     {
         std::string arr[3] = {"hello", "world", "welcome"};
-        iter(arr, 3, prints);
+        iter<std::string, void(std::string)>(arr, 3, prints);
     }
 
     {
