@@ -3,7 +3,9 @@
 # include <iostream>
 # include <vector>
 # include <algorithm>
+# include <limits>
 # include <limits.h>
+
 class Span {
 
 public:
@@ -12,8 +14,9 @@ public:
 	Span( const Span& obj );
 	Span& operator=( const Span& obj );
 	void	addNumber( const int val );
-	int		shortestSpan( void ) const;
-	int		longestSpan( void ) const;
+	int		shortestSpan( void ) ;
+	int		longestSpan( void ) ;
+	void	insert( std::vector<int>::iterator beg, std::vector<int>::iterator end);
 	~Span();
 
 private:

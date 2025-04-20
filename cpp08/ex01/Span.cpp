@@ -17,27 +17,35 @@ Span& Span::operator=( const Span& obj ) {
 
 void	Span::addNumber( const int val ) {
 	if (this->_arr.size() == this->_size) {
-		throw std::out_of_range("Span if Full");
+		throw std::out_of_range("Span is Full");
 	}
 	this->_arr.push_back(val);
-	std::sort(_arr.begin(), _arr.end());
 }
 
-int		Span::shortestSpan( void ) const {
+int		Span::shortestSpan( void ) {
+	std::sort(_arr.begin(), _arr.end());
 	if (this->_arr.size() <= 1) {
 		throw std::runtime_error("span is empty or have 1 element");
 	}
 	int min = INT_MAX;
-	for (size_t i = 0; i < _size - 1; i++) {
+	for (size_t i = 0; i < _arr.size() - 1; i++) {
 		min = std::min(abs(_arr[i] - _arr[i + 1]), min);
 	}
 	return min;
 }
-int		Span::longestSpan( void ) const {
+int		Span::longestSpan( void ) {
+	std::sort(_arr.begin(), _arr.end());
 	if (this->_arr.size() <= 1) {
 		throw std::runtime_error("span is empty or have 1 element");
 	}
 	return (std::abs(this->_arr[this->_arr.size() - 1] - this->_arr[0]));
+}
+
+void	Span::insert( std::vector<int>::iterator beg, std::vector<int>::iterator end) {
+	if ((size_t)std::distance(beg, end) == this->_size) {
+		throw std::length_error("vector is bigger that the span it self");
+	}
+	this->_arr.insert(_arr.end(), beg, end);
 }
 
 Span::~Span() {
