@@ -1,19 +1,13 @@
 #pragma once
 
 # include <iostream>
+# include <algorithm>
 
 template <typename T>
-size_t easyfind( T& con, int val ) {
-    typename T::iterator it = con.begin();
-    int pos = 0;
-
-    while (it != con.end()) {
-
-        if (*it == val) {
-            return pos;
-        }
-        pos++;
-        it++;
+int easyfind( T& con, int val ) {
+    typename T::iterator it = std::find( con.begin(), con.end(), val );
+    if (it == con.end()) {
+        return -1;
     }
-    return std::string::npos;
+    return std::distance(con.begin(), it);
 }
