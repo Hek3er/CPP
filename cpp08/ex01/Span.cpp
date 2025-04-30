@@ -41,13 +41,6 @@ int		Span::longestSpan( void ) {
 	return (std::abs(this->_arr[this->_arr.size() - 1] - this->_arr[0]));
 }
 
-void	Span::insert( std::vector<int>::iterator beg, std::vector<int>::iterator end) {
-	if ((size_t)std::distance(beg, end) == this->_size) {
-		throw std::length_error("vector is bigger that the span it self");
-	}
-	this->_arr.insert(_arr.end(), beg, end);
-}
-
 Span::~Span() {
 }
 

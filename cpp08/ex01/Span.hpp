@@ -16,7 +16,13 @@ public:
 	void	addNumber( const int val );
 	int		shortestSpan( void ) ;
 	int		longestSpan( void ) ;
-	void	insert( std::vector<int>::iterator beg, std::vector<int>::iterator end);
+	template <typename Iterator>
+	void	insert( Iterator beg, Iterator end) {
+		while (beg != end) {
+			addNumber(*beg);
+			beg++;
+		}
+	}
 	~Span();
 
 private:

@@ -4,24 +4,23 @@
 # include <stack>
 
 template <typename T>
-class MutantStack : public std::stack {
+class MutantStack : public std::stack<T> {
 
 public:
 
-	struct iterator {
-
-		iterator(T *ptr): _ptr(ptr) {}
-
-
-		private:
-			T *_ptr;
-	};
-
-	MutantStack() : std::stack() {}
-	MutantStack( MutantStack& obj ): std::stack(obj) {}
+	MutantStack() : std::stack<T>() {}
+	MutantStack( MutantStack& obj ): std::stack<T>(obj) {}
 	MutantStack& operator=( const MutantStack& obj ) {
-		//
+		if (this != &obj) {
+			std::stack<T>::operator=(obj);
+		}
 	}
+
+	typedef typename std::stack<T>::container_type::iterator iterator;
+
+	iterator begin() { return this->c.begin(); }
+	iterator end() { return this->c.end(); }
+
 	~MutantStack() {};
 
 private:
