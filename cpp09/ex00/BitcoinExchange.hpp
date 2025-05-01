@@ -4,6 +4,7 @@
 # include <map>
 # include <fstream>
 # include <sstream>
+# include <ctime>
 
 class BitcoinExchange {
 
@@ -18,11 +19,14 @@ public:
 private:
 	std::string _filename;
 	std::map<size_t, double> _exchange_db;
-	std::map<size_t, int> _value_db;
+	// std::map<size_t, int> _value_db;
 
-	void	ParseInput();
-	void	ParseDB();
-	int		ConvertInt( const std::string& n) const;
+	void		ParseInput();
+	void		ParseDB();
+	// std::pair<std::string, std::string> ParseLine( std::string line );
+	int		IsDateCorrect(std::string date) const;
+	std::string CleanLine(std::string& line) const;
+	int			ConvertInt( const std::string& n) const;
 	double		ConvertDouble( const std::string& n) const;
 	size_t		ConvertDate(std::string date) const;
 };
