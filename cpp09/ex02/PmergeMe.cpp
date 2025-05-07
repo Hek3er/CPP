@@ -43,6 +43,53 @@ bool PmergeMe::IsCharacterCorrect( const std::string& n) const {
 	return true;
 }
 
+void PmergeMe::SortDq( std::deque<int>& arr ) {
+	if (arr.size() <= 1) {
+		return ;
+	}
+	bool isOdd = false;
+	int	 tail_element = 0;
+	if (arr.size() % 2 != 0) {
+		isOdd = true;
+		tail_element = arr.back();
+		arr.pop_back();
+	}
+
+	std::deque<std::pair<int, int> > pairs;
+
+	for (size_t i = 0; i < arr.size(); i+=2 ) {
+		int a = arr[i];
+		int b = arr[i + 1];
+		if (a > b) {
+			pairs.push_back(std::make_pair(a,b));
+		} else {
+			pairs.push_back(std::make_pair(b, a));
+		}
+	}
+
+	std::deque<int> main, pend;
+
+	for (size_t i = 0; i < pairs.size(); i++) {
+		main.push_back(pairs[i].first);
+		pend.push_back(pairs[i].second);
+	}
+	
+	SortDq(main);
+
+	std::deque<int> sorted = main;
+	std::vector<int> seq = GetJacobSequence(pend.size());
+	for (size_t i = 0; i < seq.size(); i++) {
+		int idx = seq[i];
+		std::deque<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[idx]);
+		sorted.insert(it, pend[idx]);
+	}
+	if (isOdd) {
+		std::deque<int>::iterator it =std::lower_bound(sorted.begin(), sorted.end(), tail_element);
+		sorted.insert(it, tail_element);
+	}
+	arr = sorted;
+}
+
 void PmergeMe::SortV( std::vector<int> & arr ) {
 
 	if (arr.size() <= 1) {
@@ -78,9 +125,11 @@ void PmergeMe::SortV( std::vector<int> & arr ) {
 	SortV(main);
 
 	std::vector<int> sorted = main;
-	for (size_t i = 0; i < pend.size(); i++) {
-		std::vector<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[i]);
-		sorted.insert(it, pend[i]);
+	std::vector<int> seq = GetJacobSequence(pend.size());
+	for (size_t i = 0; i < seq.size(); i++) {
+		int idx = seq[i];
+		std::vector<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[idx]);
+		sorted.insert(it, pend[idx]);
 	}
 	if (isOdd) {
 		std::vector<int>::iterator it =std::lower_bound(sorted.begin(), sorted.end(), tail_element);
@@ -96,46 +145,24 @@ std::vector<int> PmergeMe::GetJacobSequence( const size_t &size ) const {
 	jacob.push_back(0);
 	jacob.push_back(1);
 
-	for (size_t i = 2; i < size; i++) {
+	for (size_t i = 2; i < size && jacob.back() < static_cast<int>(size); i++) {
 		int val = (jacob[i - 1] + 2 * jacob[i - 2]);
-		if (val >= (int)size) {
-			jacob.push_back(size - 1);
-			break;
-		}
 		jacob.push_back(val);
 	}
-	
-	std::cout << "jacob : ";
-	for (size_t i = 0; i < jacob.size(); i++) {
-		std::cout << jacob[i] << " , ";
-	}
-	std::cout << std::endl;
 
 	std::vector<int> result;
-	bool flag = false;
 	for (int i = 2; i < (int)jacob.size() && result.size() < size; i++) {
-		if (jacob[i] >= (int)size) {
-			jacob[i] = size;
-			flag = true;
-		}
-		if (flag == false)
-			result.push_back(jacob[i]);
+		result.push_back(jacob[i]);
 		int prev = jacob[i - 1];
 		if (jacob[i] - prev > 1) {
 			for (int j = jacob[i] - 1; j > prev && result.size() < size; j--) {
-				std::cout << "j : " << j << " curr = " << jacob[i] << " next = " << jacob[i + 1] << std::endl;
 				result.push_back(j);
 			}
-			std::cout << "-------------------\n";
 		}
 	}
 
 	result.push_back(0);
-	if (result.size() < size) {
-
-	}
 	return result;
-
 }
 
 void PmergeMe::Run( void ) {
@@ -152,6 +179,7 @@ void PmergeMe::Run( void ) {
 					return ;
 				}
 				this->_vec.push_back(ConvertInt(sub));
+				this->_dq.push_back(ConvertInt(sub));
 			}
 			str.erase(0, pos + 1);
 		}
@@ -160,26 +188,23 @@ void PmergeMe::Run( void ) {
 			std::cerr << "Error '" << str << "'" << std::endl;
 			return ;
 		}
-		if (!str.empty())
+		if (!str.empty()) {
 			this->_vec.push_back(ConvertInt(str));
+			this->_dq.push_back(ConvertInt(str));
+		}
 	}
 
-	SortV(_vec);
+	// SortV(_vec);
 
-	for (size_t i = 0; i < _vec.size(); i++) {
-		std::cout << "vec = " << _vec[i] << std::endl;
+	// for (size_t i = 0; i < _vec.size(); i++) {
+	// 	std::cout << "vec = " << _vec[i] << std::endl;
+	// }
+
+	SortDq(_dq);
+	std::cout << "---------------------------\n";
+	for (size_t i = 0; i < _dq.size(); i++) {
+		std::cout << "dq = " << _dq[i] << std::endl;
 	}
-
-	std::cout << std::endl;
-
-	std::cout << "jacob: ";
-	std::vector<int> p = GetJacobSequence(15);
-	for (size_t i  = 0; i < p.size(); i++) {
-		std::cout << p[i] << " , ";
-	}
-	std::cout << "\n";
-
-	std::cout << "len = " << p.size() << std::endl;
 
 }
 
