@@ -70,7 +70,7 @@ void	RPN::Run( ) {
 					std::cerr << "Error '" << sub << "'" << std::endl;
 					return ;
 				}
-				this->_arguments.push_back(CleanLine(sub));
+				this->_arguments.push_back(sub);
 			}
 			str.erase(0, pos + 1);
 		}
