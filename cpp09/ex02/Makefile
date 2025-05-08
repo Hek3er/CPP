@@ -1,7 +1,7 @@
 SRC = main.cpp PmergeMe.cpp 
 CC = c++
 NAME = PmergeMe
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98 
 HEADER =  PmergeMe.hpp 
 OSRC = $(SRC:.cpp=.o)
 

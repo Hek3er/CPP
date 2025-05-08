@@ -137,13 +137,11 @@ void PmergeMe::SortV( std::vector<int> & arr ) {
 	}
 	arr = sorted;
 }
+
 std::vector<int> PmergeMe::GetJacobSequence( const size_t &size ) const {
 	std::vector<int> jacob;
-	if (size < 1) {
-		return jacob;
-	}
-	jacob.push_back(0);
 	jacob.push_back(1);
+	jacob.push_back(3);
 
 	for (size_t i = 2; i < size && jacob.back() < static_cast<int>(size); i++) {
 		int val = (jacob[i - 1] + 2 * jacob[i - 2]);
@@ -151,18 +149,51 @@ std::vector<int> PmergeMe::GetJacobSequence( const size_t &size ) const {
 	}
 
 	std::vector<int> result;
-	for (int i = 2; i < (int)jacob.size() && result.size() < size; i++) {
-		result.push_back(jacob[i]);
-		int prev = jacob[i - 1];
-		if (jacob[i] - prev > 1) {
-			for (int j = jacob[i] - 1; j > prev && result.size() < size; j--) {
-				result.push_back(j);
+	std::vector<bool> checks(size, false);
+
+	int prev = 0;
+	for (int i = jacob.size() - 1; i >= 0; i--) {
+		if (jacob[i] >= (int)size) {
+			jacob[i] = size - 1;
+		}
+		if (checks[jacob[i]] == false) { 
+			result.push_back(jacob[i]);
+			checks[jacob[i]] = true;
+			
+			for (int j = jacob[i] - 1; j > prev; j--) {
+				if (checks[j] == false) {
+					result.push_back(j);
+					checks[j] = true;
+					
+				}
 			}
+			prev = jacob[i];
 		}
 	}
-
-	result.push_back(0);
+	if (checks[0] == false &&  size > 0) {
+		result.push_back(0);
+	}
 	return result;
+}
+
+bool PmergeMe::StartBenchmark( void ) {
+	if (gettimeofday(&_t1, 0) == -1) {
+		std::cerr << "Error: could not get timeofday" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+bool PmergeMe::EndBenchmark( void ) {
+	if (gettimeofday(&_t2, 0) == -1) {
+		std::cerr << "Error: could not get timeofday" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+uint64_t PmergeMe::CalculateTime( void ) const {
+	return (_t2.tv_sec - _t1.tv_sec) * 1000000 + (_t2.tv_usec - _t1.tv_usec);
 }
 
 void PmergeMe::Run( void ) {
@@ -194,18 +225,42 @@ void PmergeMe::Run( void ) {
 		}
 	}
 
-	// SortV(_vec);
+	std::cout << "Before: ";
+	for (size_t i = 0; i < _vec.size(); i++) {
+		std::cout << _vec[i] << " ";
+	}
+	std::cout << std::endl;
 
-	// for (size_t i = 0; i < _vec.size(); i++) {
-	// 	std::cout << "vec = " << _vec[i] << std::endl;
-	// }
+	if (!StartBenchmark()) return;
+
+	SortV(_vec);
+
+	if (!EndBenchmark()) return;
+
+	uint64_t timeV = CalculateTime();
+
+	std::cout << "After: ";
+	for (size_t i = 0; i < _vec.size(); i++) {
+		std::cout << _vec[i] << " ";
+	}
+	std::cout << std::endl;
+
+	if (!StartBenchmark()) return;
 
 	SortDq(_dq);
-	std::cout << "---------------------------\n";
-	for (size_t i = 0; i < _dq.size(); i++) {
-		std::cout << "dq = " << _dq[i] << std::endl;
-	}
 
+	if (!EndBenchmark()) return;
+
+	uint64_t timeDq = CalculateTime();
+
+	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << timeV << " us" << std::endl;
+	std::cout << "Time to process a range of " << _dq.size() << " elements with std::deque : " << timeDq << " us" <<std::endl;
+
+	// std::vector<int> t = GetJacobSequence(8);
+	// for ( size_t i = 0; i < t.size(); i++) {
+	// 	std::cout << t[i] << " , ";
+	// }
+	// std::cout << std::endl;
 }
 
 PmergeMe::~PmergeMe() {
