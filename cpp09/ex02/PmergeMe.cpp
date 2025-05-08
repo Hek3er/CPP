@@ -256,11 +256,6 @@ void PmergeMe::Run( void ) {
 	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << timeV << " us" << std::endl;
 	std::cout << "Time to process a range of " << _dq.size() << " elements with std::deque : " << timeDq << " us" <<std::endl;
 
-	// std::vector<int> t = GetJacobSequence(8);
-	// for ( size_t i = 0; i < t.size(); i++) {
-	// 	std::cout << t[i] << " , ";
-	// }
-	// std::cout << std::endl;
 }
 
 PmergeMe::~PmergeMe() {
