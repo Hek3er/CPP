@@ -1,7 +1,7 @@
 SRC = main.cpp BitcoinExchange.cpp 
 CC = c++
 NAME = btc
-CFLAGS = -Wall -Werror -Wextra -std=c++11
+CFLAGS = -Wall -Werror -Wextra -std=c++98
 HEADER =  BitcoinExchange.hpp 
 OSRC = $(SRC:.cpp=.o)
 
