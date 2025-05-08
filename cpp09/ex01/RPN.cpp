@@ -94,23 +94,33 @@ void	RPN::Run( ) {
 			this->_c.push(number);
 		}
 		else {
-			a = this->_c.top();
-			this->_c.pop();
-			b = this->_c.top();
-			this->_c.pop();
-			if (*it == "*") {
-				result = a * b;
-			} else if (*it == "+") {
-				result = a + b;
-			} else if (*it == "-") {
-				result = b - a;
-			} else if (*it == "/") {
-				result = b / a;
+			if (this->_c.size() > 1) {
+				a = this->_c.top();
+				this->_c.pop();
+				b = this->_c.top();
+				this->_c.pop();
+				if (*it == "*") {
+					result = a * b;
+				} else if (*it == "+") {
+					result = a + b;
+				} else if (*it == "-") {
+					result = b - a;
+				} else if (*it == "/") {
+					result = b / a;
+				}
+				this->_c.push(result);
+			} else {
+				std::cout << "Error: Invalid Operation" << std::endl;
+				return;
 			}
-			this->_c.push(result);
 		}
 	}
-	std::cout << this->_c.top() << std::endl;
+	if (this->_c.size() == 1) {
+		std::cout << this->_c.top() << std::endl;
+	} else {
+		std::cout << "Error: Invalid Operation" << std::endl;
+		return;
+	}
 }
 
 RPN::~RPN() {
