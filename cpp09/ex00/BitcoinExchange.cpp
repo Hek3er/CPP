@@ -166,8 +166,9 @@ void BitcoinExchange::ParseInput() {
 		std::map<size_t, double>::iterator it = this->_exchange_db.upper_bound(key_date);
 		if (it != _exchange_db.begin()) {
 			--it;
-			// std::cout << date << " => [" << it->first << "] " <<  value << " * " << it->second << " = " << value * it->second << std::endl;
 			std::cout << date << " => " << value << " = " << value * it->second << std::endl;
+		} else {
+			std::cout << "Error: No previous record is found" << std::endl;
 		}
 	}
 

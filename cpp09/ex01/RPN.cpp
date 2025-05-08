@@ -79,8 +79,13 @@ void	RPN::Run( ) {
 			std::cerr << "Error '" << str << "'" << std::endl;
 			return ;
 		}
-		if (!str.empty())
+		if (str.empty()) {
+			std::cerr << "Error: empty string" << std::endl;
+			return ;
+		}
+		else {
 			this->_arguments.push_back(str);
+		}
 	}
 
 	for (std::list<std::string>::iterator it = _arguments.begin(); it != _arguments.end(); it++) {

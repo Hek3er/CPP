@@ -78,8 +78,13 @@ void PmergeMe::SortDq( std::deque<int>& arr ) {
 
 	std::deque<int> sorted = main;
 	std::vector<int> seq = GetJacobSequence(pend.size());
+	std::deque<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[0]);
+	sorted.insert(it, pend[0]);
 	for (size_t i = 0; i < seq.size(); i++) {
 		int idx = seq[i];
+		if (idx >= static_cast<int>(pend.size()) || idx == 0) {
+			continue;
+		}
 		std::deque<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[idx]);
 		sorted.insert(it, pend[idx]);
 	}
@@ -126,8 +131,15 @@ void PmergeMe::SortV( std::vector<int> & arr ) {
 
 	std::vector<int> sorted = main;
 	std::vector<int> seq = GetJacobSequence(pend.size());
+	
+	std::vector<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[0]);
+	sorted.insert(it, pend[0]);
+
 	for (size_t i = 0; i < seq.size(); i++) {
 		int idx = seq[i];
+		if (idx >= static_cast<int>(pend.size()) || idx == 0) {
+			continue;
+		}
 		std::vector<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[idx]);
 		sorted.insert(it, pend[idx]);
 	}
@@ -149,30 +161,20 @@ std::vector<int> PmergeMe::GetJacobSequence( const size_t &size ) const {
 	}
 
 	std::vector<int> result;
-	std::vector<bool> checks(size, false);
-
-	int prev = 0;
-	for (int i = jacob.size() - 1; i >= 0; i--) {
-		if (jacob[i] >= (int)size) {
+	result.push_back(jacob[0]);
+	for (int i = 1; i < (int)jacob.size() && result.size() < size -1; i++) {
+		if (jacob[i] >= static_cast<int>(size)) {
 			jacob[i] = size - 1;
 		}
-		if (checks[jacob[i]] == false) { 
-			result.push_back(jacob[i]);
-			checks[jacob[i]] = true;
-			
-			for (int j = jacob[i] - 1; j > prev; j--) {
-				if (checks[j] == false) {
-					result.push_back(j);
-					checks[j] = true;
-					
-				}
+		result.push_back(jacob[i]);
+		int prev = jacob[i - 1];
+		if (jacob[i] - prev > 1) {
+			for (int j = jacob[i] - 1; j > prev && result.size() < size - 1; j--) {
+				result.push_back(j);
 			}
-			prev = jacob[i];
 		}
 	}
-	if (checks[0] == false &&  size > 0) {
-		result.push_back(0);
-	}
+
 	return result;
 }
 
@@ -206,7 +208,7 @@ void PmergeMe::Run( void ) {
 			sub = CleanLine(sub);
 			if (!sub.empty()) {
 				if (!IsCharacterCorrect(sub)) {
-					std::cerr << "Error '" << sub << "'" << std::endl;
+					std::cerr << "Error: '" << sub << "'" << std::endl;
 					return ;
 				}
 				this->_vec.push_back(ConvertInt(sub));
@@ -216,10 +218,14 @@ void PmergeMe::Run( void ) {
 		}
 		CleanLine(str);
 		if (!IsCharacterCorrect(str)) {
-			std::cerr << "Error '" << str << "'" << std::endl;
+			std::cerr << "Error: '" << str << "'" << std::endl;
 			return ;
 		}
-		if (!str.empty()) {
+		if (str.empty()) {
+			std::cerr << "Error: empty string" << std::endl;
+			return ;
+		}
+		else {
 			this->_vec.push_back(ConvertInt(str));
 			this->_dq.push_back(ConvertInt(str));
 		}
@@ -255,6 +261,15 @@ void PmergeMe::Run( void ) {
 
 	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << timeV << " us" << std::endl;
 	std::cout << "Time to process a range of " << _dq.size() << " elements with std::deque : " << timeDq << " us" <<std::endl;
+
+	// std::vector<int> p = GetJacobSequence(21);
+	// std::cout << "jacob : " ;
+	// for (size_t i = 0;  i < p.size(); i++) {
+	// 	std::cout << p[i] << " , ";
+	// }
+	// std::cout << std::endl;
+
+	// std::cout << p.size() << std::endl;
 
 }
 
