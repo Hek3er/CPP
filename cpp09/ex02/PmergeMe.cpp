@@ -13,6 +13,7 @@ PmergeMe& PmergeMe::operator=( const PmergeMe& obj) {
 	if (this != &obj) {
 		this->_av = obj._av;
 		this->_vec = obj._vec;
+		this->_dq = obj._dq;
 	}
 	return (*this);
 }

@@ -12,6 +12,8 @@ BitcoinExchange::BitcoinExchange( const BitcoinExchange& obj ) {
 BitcoinExchange& BitcoinExchange::operator=( const BitcoinExchange& obj) {
 	if (this != &obj) {
 		this->_filename = obj._filename;
+		this->_error_log = obj._error_log;
+		this->_exchange_db = obj._exchange_db;
 	}
 	return (*this);
 }
@@ -188,7 +190,6 @@ void BitcoinExchange::ParseDB() {
 		line.erase(0, line.find(",") + 1);
 		int date = ConvertDate(date_str);
 		double exchange_rate = ConvertDouble(line);
-		// std::cout << date << std::endl;
 		_exchange_db[date] = exchange_rate;
 	}
 	file.close();

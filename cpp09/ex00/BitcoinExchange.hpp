@@ -20,12 +20,10 @@ private:
 	std::string _filename;
 	std::string _error_log;
 	std::map<size_t, double> _exchange_db;
-	// std::map<size_t, int> _value_db;
 
 	void		ParseInput();
 	void		ParseDB();
 	bool		IsLeapYear( int year ) const;
-	// std::pair<std::string, std::string> ParseLine( std::string line );
 	int		IsDateCorrect(std::string date);
 	std::string CleanLine(std::string& line) const;
 	int			ConvertInt( const std::string& n) const;
