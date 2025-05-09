@@ -28,8 +28,8 @@ std::string RPN::CleanLine(std::string& line) const {
 	return result;
 }
 
-int RPN::ConvertInt(const std::string& n) const {
-	int res;
+double RPN::ConvertDouble(const std::string& n) const {
+	double res;
 	std::stringstream out(n);
 	out >> res;
 	return res;
@@ -56,9 +56,9 @@ bool RPN::IsCharacterCorrect( const std::string& n) const {
 void	RPN::Run( ) {
 
 	size_t pos = 0;
-	int a = 0;
-	int b = 0;
-	int result = 0;
+	double a = 0;
+	double b = 0;
+	double result = 0;
 
 	for (size_t i = 1; _av[i] != NULL; i++) {
 		std::string str(_av[i]);
@@ -90,7 +90,7 @@ void	RPN::Run( ) {
 
 	for (std::list<std::string>::iterator it = _arguments.begin(); it != _arguments.end(); it++) {
 		if (*it != "*" && *it != "+" && *it != "-" && *it != "/") {
-			int number = ConvertInt(*it);
+			double number = ConvertDouble(*it);
 			this->_c.push(number);
 		}
 		else {
@@ -106,7 +106,12 @@ void	RPN::Run( ) {
 				} else if (*it == "-") {
 					result = b - a;
 				} else if (*it == "/") {
-					result = b / a;
+					if (a != 0)
+						result = b / a;
+					else {
+						std::cout << "Error: Invalid Operation"<< std::endl;
+						return ;
+					}
 				}
 				this->_c.push(result);
 			} else {

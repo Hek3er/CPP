@@ -16,10 +16,10 @@ public:
 	~RPN();
 
 private:
-	std::stack<int> 		_c;
+	std::stack<double> 		_c;
 	std::list<std::string>  _arguments;
 	char**					_av;
 	std::string CleanLine(std::string& line) const;
-	int 		ConvertInt(const std::string& n) const;
+	double 		ConvertDouble(const std::string& n) const;
 	bool		IsCharacterCorrect( const std::string& n) const;
 };
