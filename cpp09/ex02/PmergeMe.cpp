@@ -221,14 +221,19 @@ void PmergeMe::Run( void ) {
 			return ;
 		}
 		if (str.empty()) {
-			std::cerr << "Error: empty string" << std::endl;
-			return ;
+			continue;
 		}
 		else {
 			this->_vec.push_back(ConvertInt(str));
 			this->_dq.push_back(ConvertInt(str));
 		}
 	}
+	if (_vec.empty() || _dq.empty()) {
+		std::cerr << "Error: Empty Container" << std::endl;
+		return ;
+	}
+	size_t vecsize = _vec.size();
+	size_t dqsize = _dq.size();
 
 	std::cout << "Before: ";
 	for (size_t i = 0; i < _vec.size(); i++) {
@@ -241,6 +246,8 @@ void PmergeMe::Run( void ) {
 	SortV(_vec);
 
 	if (!EndBenchmark()) return;
+
+	assert( vecsize == _vec.size() );
 
 	uint64_t timeV = CalculateTime();
 
@@ -255,6 +262,8 @@ void PmergeMe::Run( void ) {
 	SortDq(_dq);
 
 	if (!EndBenchmark()) return;
+
+	assert( dqsize == _dq.size() );
 
 	uint64_t timeDq = CalculateTime();
 
