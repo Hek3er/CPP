@@ -79,8 +79,7 @@ void PmergeMe::SortDq( std::deque<int>& arr ) {
 
 	std::deque<int> sorted = main;
 	std::vector<int> seq = GetJacobSequence(pend.size());
-	std::deque<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[0]);
-	sorted.insert(it, pend[0]);
+	sorted.insert(sorted.begin(), pend[0]);
 	for (size_t i = 0; i < seq.size(); i++) {
 		int idx = seq[i];
 		if (idx >= static_cast<int>(pend.size()) || idx == 0) {
@@ -133,8 +132,7 @@ void PmergeMe::SortV( std::vector<int> & arr ) {
 	std::vector<int> sorted = main;
 	std::vector<int> seq = GetJacobSequence(pend.size());
 	
-	std::vector<int>::iterator it = std::lower_bound(sorted.begin(), sorted.end(), pend[0]);
-	sorted.insert(it, pend[0]);
+	sorted.insert(sorted.begin(), pend[0]);
 
 	for (size_t i = 0; i < seq.size(); i++) {
 		int idx = seq[i];
@@ -263,14 +261,6 @@ void PmergeMe::Run( void ) {
 	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << timeV << " us" << std::endl;
 	std::cout << "Time to process a range of " << _dq.size() << " elements with std::deque : " << timeDq << " us" <<std::endl;
 
-	// std::vector<int> p = GetJacobSequence(21);
-	// std::cout << "jacob : " ;
-	// for (size_t i = 0;  i < p.size(); i++) {
-	// 	std::cout << p[i] << " , ";
-	// }
-	// std::cout << std::endl;
-
-	// std::cout << p.size() << std::endl;
 
 }
 
