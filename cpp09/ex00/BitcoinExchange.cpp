@@ -23,7 +23,6 @@ void	BitcoinExchange::run() {
 	ParseInput();
 }
 
-
 int BitcoinExchange::ConvertInt(const std::string& n) const {
 	int res;
 	std::stringstream out(n);
@@ -76,6 +75,15 @@ bool BitcoinExchange::IsLeapYear( int year ) const {
 	return false;
 }
 
+bool IsNumberCorrect( const std::string& str) {
+	for (size_t i = 0; i < str.size(); i++) {
+		if ((str[i] < '0' || str[i] > '9') && str[i] != '-' ) {
+			return false;
+		}
+	}
+	return true;
+}
+
 int	BitcoinExchange::IsDateCorrect(std::string date)  {
 	size_t pos = 0;
 	size_t i = 0;
@@ -84,9 +92,21 @@ int	BitcoinExchange::IsDateCorrect(std::string date)  {
 	while ((pos = date.find("-")) != std::string::npos) {
 		std::string element = date.substr(0, pos);
 		date.erase(0, pos + 1);
+		if (element.empty()) {
+			this->_error_log  = "Date is invalid, should be y-m-d";
+			return -1;
+		};
+		if (IsNumberCorrect(element) == false) {
+			this->_error_log  = "Date is invalid, should be y-m-d";
+			return -1;
+		}
 		date_arr[i++] = element;
 	}
 	date_arr[i] = date;
+	if (IsNumberCorrect(date) == false) {
+		this->_error_log  = "Date is invalid, should be y-m-d";
+		return -1;
+	}
 	if (date_arr[0].empty() || date_arr[1].empty() || date_arr[2].empty()){
 		this->_error_log  = "Date is invalid, should be y-m-d";
 		return -1;
@@ -125,13 +145,35 @@ int	BitcoinExchange::IsDateCorrect(std::string date)  {
 	return year * 10000 + month * 100 + day;
 }
 
+bool IsValueCorrect( const std::string& str ) {
+	size_t point = 0 ;
+	for (size_t i = 0; i < str.size(); i++) {
+		if ((str[i] < '0' || str[i] > '9') && str[i] != '.') {
+			std::cout << "Error: '" << str[i] << "' is not a valid number" << std::endl; 
+			return false;
+		}
+		if (str[i] == '.') point++;
+		if (point > 1) {
+			std::cout << "Error: '" << str << "' is not a valid number" << std::endl;
+			return false;
+		}
+	}
+	return true;
+}
+
 void BitcoinExchange::ParseInput() {
+	this->_filename = CleanLine(this->_filename);
+	if (this->_filename.empty()) {
+		std::cout << "Error: no input is given" << std::endl;
+		return;
+	}
 	std::ifstream file(this->_filename);
 	if (file.fail() || !file.is_open()) {
 		throw std::runtime_error("Failed To open file " + this->_filename);
 	}
 	std::string line;
 	while (std::getline(file, line)) {
+		if (line.empty()) continue;
 		size_t pos = line.find("|");
 		if (pos == std::string::npos) {
 			std::cout << "Error: '|' not found" << std::endl;
@@ -142,6 +184,7 @@ void BitcoinExchange::ParseInput() {
 		date = CleanLine(date);
 		line = CleanLine(line);
 
+
 		if (line.empty() || date.empty()) {
 			std::cout << "Error: No date or value is given" << std::endl;
 			continue;
@@ -150,6 +193,8 @@ void BitcoinExchange::ParseInput() {
 		if (date == "date" && line == "value") {
 			continue;
 		}
+
+		if (!IsValueCorrect(line)) continue;
 
 		int key_date = IsDateCorrect(date);
 		if (key_date == -1) {
